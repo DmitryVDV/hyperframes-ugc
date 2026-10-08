@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Ролик · Наушники 2 в 1 · KZ ZS10 Pro 2</title>
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"
+      integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="assets/tokens.css" />
+    <script src="assets/motion.js"></script>
+    <script src="assets/wipe-words.js"></script>
+    <style>
+      /* Декларации также встроены для статического анализатора HyperFrames. */
+@font-face {
+  font-family: "Alumni Sans Black";
+  src: url("assets/fonts/AlumniSans-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Golos Text";
+  src: url("assets/fonts/GolosText-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Golos Text";
+  src: url("assets/fonts/GolosText-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("assets/fonts/JetBrainsMono-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+      .n-video {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+      }
+
+      .plate {
+        display: inline-block;
+        background: rgba(23, 24, 26, 0.86);
+        padding: 24px 30px;
+      }
+
+      /* Заголовок-хук и кикеры глав: верхняя безопасная зона, полоса 936. */
+      .n-title {
+        position: absolute;
+        left: 72px;
+        top: 220px;
+        width: 936px;
+      }
+      .n-title .rule {
+        margin-top: 20px;
+      }
+      .n-title .n-hook-line {
+        display: block;
+        width: fit-content;
+        margin-top: 26px;
+        font-size: 122px;
+      }
+
+      .n-chapter {
+        position: absolute;
+        left: 72px;
+        top: 220px;
+        width: 936px;
+      }
+      .n-chapter .rule {
+        margin-top: 20px;
+      }
+
+      /* ── Субтитры-караоке (на базе caption-clip-wipe) ──
+         Правила владельца: один размер шрифта на весь ролик, всегда в
+         безопасной зоне (полоса 72…900, низ ≥ 480 от края). Фраза видна
+         ЦЕЛИКОМ сразу, слова подсвечиваются акцентом по мере речи. */
+      #wp-container {
+        position: absolute;
+        left: 72px;
+        right: 180px;
+        bottom: 470px;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .wp-group {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 10px 20px;
+        padding: 18px 24px;
+        background: rgba(23, 24, 26, 0.62);
+        visibility: hidden;
+      }
+      .wp-word {
+        font-family: "Alumni Sans Black", sans-serif;
+        font-weight: 900;
+        font-size: 58px;
+        text-transform: uppercase;
+        color: rgba(237, 234, 227, 0.66);
+        display: inline-block;
+        letter-spacing: 0.02em;
+        line-height: 1.05;
+        will-change: color;
+      }
+
+      /* Итоговые плашки владельца (вердикт + вопрос) — роль callout. */
+      .n-sub {
+        position: absolute;
+        left: 72px;
+        top: 1330px;
+        width: 828px;
+      }
+      .n-sub .r-callout {
+        font-size: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="109.63"
+      data-width="1080"
+      data-height="1920"
+      data-fps="30"
+    >
+      <!-- ── Картинка. Тринадцать сегментов из footage/71026, границы —
+           по окончаниям смысловых фраз из расшифровки (правило: фразы
+           не обрезать). Речь — ведущий звук (−16 LUFS), без музыкальной подложки. Субтитры — Clip Wipe по словам речи.
+           0.0–16.4  голова + коробка + устройство для подкастов (0816 целиком)
+           16.4–30.9 «лучше ли, чем Apple» — фраза до конца (0819 0–14.5)
+           30.9–39.6 комплект: раскладка (0819 73.9–82.6)
+           39.6–44.5 «штука, которая переключает» (0820 0.8–5.7)
+           44.5–56.2 переключатель частот, демонстрация (0820 9.4–21.1)
+           56.2–61.4 подключаю провод (0821 0–5.2)
+           61.4–66.7 «превратить в беспроводные» (0819 34.2–39.5)
+           66.7–75.5 модуль с АКБ + цена (0819 60.9–69.7)
+           75.5–84.8 подсоединил неправильно → правильно (0823 0–9.3)
+           84.8–92.2 «эта штука идёт за ухо» (0823 22.5–29.9)
+           92.2–99.9 сидит удобно, фраза до конца (0824 1.0–8.7)
+           99.9–103.0 «переходник… проверим, как они звучат» (0819 136.3–139.4)
+           103.0–111.2 стол: проводной и беспроводной (0859 целиком) -->
+      <video id="n-v1" class="n-video" src="assets/video/g1-intro.mp4" data-start="0" data-duration="16.4" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v2" class="n-video" src="assets/video/g2-question.mp4" data-start="16.4" data-duration="14.5" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v3" class="n-video" src="assets/video/g3a-kit.mp4" data-start="30.9" data-duration="8.7" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v4" class="n-video" src="assets/video/g3c1-switch-intro.mp4" data-start="39.6" data-duration="4.9" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v5" class="n-video" src="assets/video/g3c2-switch-demo.mp4" data-start="44.5" data-duration="11.7" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v6" class="n-video" src="assets/video/g4a-cable.mp4" data-start="56.2" data-duration="5.2" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v7" class="n-video" src="assets/video/g4b-wireless.mp4" data-start="61.4" data-duration="3.73" data-track-index="0" data-has-audio="true" data-volume="1" playsinline data-media-start="1.51"></video>
+      <video id="n-v8" class="n-video" src="assets/video/g4c-price.mp4" data-start="65.13" data-duration="8.8" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v9" class="n-video" src="assets/video/g5a-wrong.mp4" data-start="73.93" data-duration="9.3" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v10" class="n-video" src="assets/video/g5b-oerear.mp4" data-start="83.23" data-duration="7.4" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v11" class="n-video" src="assets/video/g5c-fit.mp4" data-start="90.63" data-duration="7.7" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v12" class="n-video" src="assets/video/g6-soundcheck.mp4" data-start="98.33" data-duration="3.1" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <video id="n-v13" class="n-video" src="assets/video/g7-table.mp4" data-start="101.43" data-duration="8.2" data-track-index="0" data-has-audio="true" data-volume="1" playsinline></video>
+      <!-- Учебная копия: только живая речь, без музыкальной подложки. -->
+
+      <!-- 0.0–4.2 · заголовок-хук -->
+      <section id="sc-title" class="clip" data-start="0" data-duration="4.2" data-track-index="1">
+        <div class="n-title">
+          <span id="nt-kicker" class="r-kicker plate">Обзор · KZ ZS10 Pro 2</span>
+          <span id="nt-rule" class="rule"></span>
+          <span id="nt-hook-1" class="r-hook plate n-hook-line">Наушники</span>
+          <span id="nt-hook-2" class="r-hook plate n-hook-line">2 в 1</span>
+        </div>
+      </section>
+
+      <!-- Кикеры глав -->
+      <section id="sc-k1" class="clip" data-start="4.4" data-duration="2.8" data-track-index="1">
+        <div class="n-chapter">
+          <span id="nk1" class="r-kicker plate">Что за товар</span>
+          <span id="nk1-rule" class="rule"></span>
+        </div>
+      </section>
+      <section id="sc-k2" class="clip" data-start="16.6" data-duration="2.8" data-track-index="1">
+        <div class="n-chapter">
+          <span id="nk2" class="r-kicker plate">Интересно</span>
+          <span id="nk2-rule" class="rule"></span>
+        </div>
+      </section>
+      <section id="sc-k3" class="clip" data-start="31.1" data-duration="2.8" data-track-index="1">
+        <div class="n-chapter">
+          <span id="nk3" class="r-kicker plate">Что в комплекте</span>
+          <span id="nk3-rule" class="rule"></span>
+        </div>
+      </section>
+      <section id="sc-k4" class="clip" data-start="56.5" data-duration="2.8" data-track-index="1">
+        <div class="n-chapter">
+          <span id="nk4" class="r-kicker plate">Главный плюс</span>
+          <span id="nk4-rule" class="rule"></span>
+        </div>
+      </section>
+      <section id="sc-k5" class="clip" data-start="74.13" data-duration="2.8" data-track-index="1">
+        <div class="n-chapter">
+          <span id="nk5" class="r-kicker plate">Как сидят</span>
+          <span id="nk5-rule" class="rule"></span>
+        </div>
+      </section>
+      <section id="sc-k6" class="clip" data-start="98.53" data-duration="2.8" data-track-index="1">
+        <div class="n-chapter">
+          <span id="nk6" class="r-kicker plate">Звук</span>
+          <span id="nk6-rule" class="rule"></span>
+        </div>
+      </section>
+
+      <!-- Субтитры Clip Wipe: контейнер, слова создаёт скрипт из __WIPE_DATA -->
+      <section id="sc-wipe" class="clip" data-start="0" data-duration="101.43" data-track-index="2" data-media-start="0">
+        <div id="wp-container"></div>
+      </section>
+
+      <!-- 103.4–111.0 · итоговые плашки владельца (вердикт + вопрос) -->
+      <section id="sc-p1" class="clip" data-start="103.3" data-duration="3.6" data-track-index="2">
+        <div class="n-sub">
+          <span id="np1" class="r-callout plate">С AirPod — примерно одинаково, но насыщенного <span class="acc">баса</span> нет</span>
+        </div>
+      </section>
+      <section id="sc-p2" class="clip" data-start="107" data-duration="2.63" data-track-index="2" data-media-start="0">
+        <div class="n-sub">
+          <span id="np2" class="r-callout plate">Какой вам нравится — проводной или беспроводной?</span>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      (function () {
+        var HF = window.HF;
+
+        /* Шрифты должны быть загружены до измерения слов — сборка таймлайна
+           внутри fonts.ready; регистрация — после полной сборки. */
+        document.fonts.ready.then(function () {
+          var tl = gsap.timeline({ paused: true });
+
+          /* ── 0.0–4.2 · заголовок ──────────────────────────── */
+          var title = ["#nt-kicker", "#nt-rule", "#nt-hook-1", "#nt-hook-2"];
+          HF.hide(tl, title, 0);
+          HF.ruleHit(tl, "#nt-rule", 0.3);
+          HF.enter(tl, "#nt-kicker", 0.38);
+          HF.enterStagger(tl, ["#nt-hook-1", "#nt-hook-2"], 0.46);
+          HF.exit(tl, title, 3.66);
+
+          /* ── Кикеры глав ───────────────────────────────────── */
+          var chapters = [
+            ["#nk1", "#nk1-rule", 4.4, 7.2],
+            ["#nk2", "#nk2-rule", 16.6, 19.4],
+            ["#nk3", "#nk3-rule", 31.1, 33.9],
+            ["#nk4", "#nk4-rule", 56.5, 59.3],
+            ["#nk5", "#nk5-rule", 75.64, 78.44],
+            ["#nk6", "#nk6-rule", 100.04, 102.84],
+          ];
+          chapters.forEach(function (k) {
+            HF.hide(tl, [k[0], k[1]], 0);
+            HF.ruleHit(tl, k[1], k[2]);
+            HF.enter(tl, k[0], k[2] + HF.M.step);
+            HF.exit(tl, [k[0], k[1]], k[3] - 0.3);
+          });
+
+          /* ── Субтитры-караоке ─────────────────────────────────
+             Слова из window.__WIPE_DATA: text/start/end по речи.
+             Фраза появляется целиком в момент первого слова, каждое
+             слово подсвечивается акцентом ровно тогда, когда звучит.
+             Смена фраз — жёсткая, размер шрифта единый. */
+          var D = window.__WIPE_DATA;
+          var WORDS = D.words;
+          var GROUPS = D.groups;
+
+          var container = document.getElementById("wp-container");
+          GROUPS.forEach(function (g, gi) {
+            var groupWords = WORDS.slice(g[0], g[1] + 1);
+            var grp = document.createElement("div");
+            grp.className = "wp-group";
+            grp.id = "wp-grp-" + gi;
+            var wordEls = [];
+            groupWords.forEach(function (w, i) {
+              var span = document.createElement("span");
+              span.className = "wp-word";
+              span.id = "wp-w-" + (g[0] + i);
+              span.textContent = w.text.toUpperCase();
+              grp.appendChild(span);
+              wordEls.push(span);
+            });
+            container.appendChild(grp);
+
+            var gStart = groupWords[0].start;
+            var gEnd = groupWords[groupWords.length - 1].end + 0.55;
+            var next = GROUPS[gi + 1];
+            if (next) {
+              gEnd = Math.min(gEnd, WORDS[next[0]].start - 0.05);
+            }
+
+            tl.set(grp, { visibility: "visible" }, gStart);
+            groupWords.forEach(function (w, i) {
+              tl.to(wordEls[i], { color: "#e0dd1f", duration: 0.12, ease: "none" }, w.start);
+            });
+            tl.set(grp, { visibility: "hidden" }, gEnd);
+          });
+
+          /* ── 103.4+ · итоговые плашки ──────────────────────── */
+          HF.hide(tl, ["#np1", "#np2"], 0);
+          HF.enter(tl, "#np1", 103.4);
+          HF.exit(tl, "#np1", 106.6);
+          HF.enter(tl, "#np2", 107.1);
+          HF.exit(tl, "#np2", 109.3);
+
+          window.__timelines["main"] = tl;
+        });
+      })();
+    </script>
+  </body>
+</html>

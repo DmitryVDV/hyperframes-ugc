@@ -1,0 +1,242 @@
+/* Цех — токены 10.09. Источник: reels/10-09-26/MOTION.md
+   Кириллицу дают только эти файлы. Имя семейства — "Alumni Sans Black", НЕ "Alumni Sans". */
+
+@font-face {
+  font-family: "Alumni Sans Black";
+  src: url("fonts/AlumniSans-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Golos Text";
+  src: url("fonts/GolosText-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Golos Text";
+  src: url("fonts/GolosText-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/JetBrainsMono-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  --surface: #17181a;
+  --surface-2: #202226;
+  --ink: #edeae3;
+  --ink-2: #a6a29b;
+  --hairline: rgba(237, 234, 227, 0.22);
+  --accent: #e0dd1f;
+
+  /* светлая тема — только улица в ролике 1 */
+  --light-surface: #ecece7;
+  --light-ink: #141414;
+  --light-accent: #9c5b0c;
+
+  --safe-top: 220px;
+  --safe-bottom: 480px;
+  --safe-left: 72px;
+  --band: 936px; /* полоса контента 72…1008 */
+  --sub-band: 828px; /* полоса субтитров 72…900, правое поле 180 */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 0; /* скруглений нет нигде */
+}
+
+html,
+body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+#root {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+/* ── сцена и сетка ─────────────────────────────────────────── */
+
+.stage {
+  width: 100%;
+  height: 100%;
+  background: var(--surface);
+}
+
+/* полоса контента: 936 px, от верхнего безопасного поля до нижнего */
+.band {
+  position: absolute;
+  left: var(--safe-left);
+  top: var(--safe-top);
+  width: var(--band);
+  height: calc(1920px - var(--safe-top) - var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.band--center {
+  justify-content: center;
+}
+.band--end {
+  justify-content: flex-end;
+}
+
+/* ── типографические роли ──────────────────────────────────── */
+
+.r-kicker {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.r-hook {
+  font-family: "Alumni Sans Black", sans-serif;
+  font-weight: 900;
+  font-size: 132px;
+  line-height: 0.86;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.r-title {
+  font-family: "Alumni Sans Black", sans-serif;
+  font-weight: 900;
+  font-size: 96px;
+  line-height: 0.9;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.r-callout {
+  font-family: "Golos Text", sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.r-stat {
+  font-family: "Alumni Sans Black", sans-serif;
+  font-weight: 900;
+  font-size: 200px;
+  line-height: 0.82;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: var(--accent);
+}
+
+.r-data {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* ВНИМАНИЕ: токен требует JetBrains Mono 400, в content/brand/fonts есть только Bold.
+   Роль отрисована на 700. Класть Regular — и вес вернётся на 400 без других правок. */
+.r-code {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.5;
+  font-variant-ligatures: none;
+  color: var(--ink);
+}
+
+.r-cta {
+  font-family: "Golos Text", sans-serif;
+  font-weight: 800;
+  font-size: 46px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.acc {
+  color: var(--accent);
+}
+
+/* ── компоненты ────────────────────────────────────────────── */
+
+/* акцентная линия 160×6, прямой торец. Появляется целиком за 1 кадр — удар, не рост. */
+.rule {
+  display: block;
+  width: 160px;
+  height: 6px;
+  background: var(--accent);
+}
+
+/* линия выноски 4px */
+.lead-line {
+  display: block;
+  height: 4px;
+  background: var(--accent);
+  transform-origin: left center;
+}
+
+/* номер выноски — квадрат 38 со скосом 4, не круг */
+.callout-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: var(--accent);
+  color: var(--surface);
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  clip-path: polygon(
+    4px 0,
+    calc(100% - 4px) 0,
+    100% 4px,
+    100% calc(100% - 4px),
+    calc(100% - 4px) 100%,
+    4px 100%,
+    0 calc(100% - 4px),
+    0 4px
+  );
+}
+
+/* границы 3px */
+.panel {
+  background: var(--surface-2);
+  border: 3px solid var(--hairline);
+}
+
+/* подчёркивание-акцент, прочерчивается слева направо */
+.underline {
+  display: block;
+  height: 4px;
+  background: var(--accent);
+  transform-origin: left center;
+}
